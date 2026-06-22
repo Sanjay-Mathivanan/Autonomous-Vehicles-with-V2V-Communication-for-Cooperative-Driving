@@ -465,7 +465,7 @@ gantt
 
 ---
 
-## 17. Team Members & Maintainers
+## 17. Team Members
 
 ### Project Developers (Team Members)
 * **Sanjay M**
@@ -477,8 +477,7 @@ gantt
 ### Project Mentor
 * **Mathi Yuvarajan T K**
 
-### Platform Maintainers & Original Contributors
-* **Josh Newans** - Platform Maintainer (Original Robot URDF & Hardware Guides)
+
 
 ---
 
