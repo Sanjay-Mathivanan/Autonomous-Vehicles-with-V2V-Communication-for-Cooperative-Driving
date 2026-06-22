@@ -1,15 +1,5 @@
 # Autonomous Vehicles with V2V Communication for Cooperative Driving
 
-<p align="center">
-  <img src="docs/images/project_logo.png" alt="Project Logo" width="180px"/>
-</p>
-
-<p align="center">
-  <img src="docs/images/project_banner.png" alt="Project Banner" width="100%"/>
-</p>
-
----
-
 ## 1. Project Overview
 This repository hosts the **Autonomous Vehicles with V2V Communication for Cooperative Driving** research project. The core platform is a modular differential-drive robot (`ros_bot`) developed for ROS2 (Robot Operating System 2). The project aims to establish robust single-robot autonomy—incorporating high-fidelity physical/simulation modeling, active motor control, sensor integration (LiDAR, Camera), SLAM, and advanced path planning—before scaling to a decentralized swarm vehicle-to-vehicle (V2V) network for coordinated behavior (such as platooning, overtake synchronization, and intersection management).
 
