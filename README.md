@@ -318,13 +318,13 @@ sequenceDiagram
 ### Gazebo Simulation Output
 The figure below illustrates the differential-drive robot (`ros_bot`) navigating through the obstacle world in Gazebo Classic with camera field-of-view projections and active ball tracking.
 <p align="center">
-  <img src="docs/images/gazebo_simulation.png" alt="Gazebo Simulation View" width="80%"/>
+  <img src="docs/images/gazebo_simulation.png" alt="Gazebo Simulation View" width="50%"/>
 </p>
 
 ### RViz Mapping & Navigation Output
 The figure below represents the active SLAM mapping and localized navigation view in RViz, detailing occupancy grids, laser scan points, dynamic costmap inflation rings, and target path generation.
 <p align="center">
-  <img src="docs/images/rviz_navigation.png" alt="RViz Navigation Interface" width="80%"/>
+  <img src="docs/images/rviz_navigation.png" alt="RViz Navigation Interface" width="50%"/>
 </p>
 
 ### Project Demonstration Videos
