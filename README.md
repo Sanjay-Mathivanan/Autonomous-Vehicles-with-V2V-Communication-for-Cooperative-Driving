@@ -165,26 +165,26 @@ The following Mermaid diagram outlines the system connectivity and topic flows i
 
 ```mermaid
 graph TD
-    subgraph Hardware / Simulation Layer
-        A[Gazebo Classic / Real Robot Hardware] <--> |Joint States & Velocity Commands| B(ros2_control)
+    subgraph HW_Sim ["Hardware / Simulation Layer"]
+        A["Gazebo Classic / Real Robot Hardware"] <--> |"Joint States & Velocity Commands"| B(ros2_control)
     end
 
-    subgraph Sensor Layer
-        A --> |LaserScan /scan| C[Lidar Link]
-        A --> |Camera /camera/image_raw| D[Camera Link]
+    subgraph Sensor_Layer ["Sensor Layer"]
+        A --> |"LaserScan /scan"| C[Lidar Link]
+        A --> |"Camera /camera/image_raw"| D[Camera Link]
     end
 
-    subgraph Navigation & Control Layer
-        B --> |Odom /odom| G[Nav2 Stack]
-        C --> |LaserScan| G
-        C --> |LaserScan| H[Slam Toolbox]
-        H --> |Map /map| G
+    subgraph Nav_Control ["Navigation & Control Layer"]
+        B --> |"Odom /odom"| G[Nav2 Stack]
+        C --> |"LaserScan"| G
+        C --> |"LaserScan"| H[Slam Toolbox]
+        H --> |"Map /map"| G
         
-        I[Joystick /joy] --> |joy_node| J[teleop_node] --> |/cmd_vel_joy| K(twist_mux)
-        D --> |/camera/image_raw| L[ball_tracker] --> |/cmd_vel_tracker| K
-        G --> |/cmd_vel| K
+        I["Joystick /joy"] --> |"joy_node"| J["teleop_node"] --> |"/cmd_vel_joy"| K(twist_mux)
+        D --> |"/camera/image_raw"| L["ball_tracker"] --> |"/cmd_vel_tracker"| K
+        G --> |"/cmd_vel"| K
         
-        K --> |/diff_cont/cmd_vel_unstamped| B
+        K --> |"/diff_cont/cmd_vel_unstamped"| B
     end
 
     classDef default fill:#1f2937,stroke:#374151,color:#f9fafb;
@@ -294,12 +294,12 @@ This sequence diagram shows the step-by-step startup process for a simulation ru
 ```mermaid
 sequenceDiagram
     autonumber
-    participant User as User / Developer
-    participant Launch as launch_sim.launch.py
-    participant RSP as robot_state_publisher
-    participant GZ as Gazebo Simulator
-    participant CM as controller_manager
-    participant TM as twist_mux
+    participant User as "User / Developer"
+    participant Launch as "launch_sim.launch.py"
+    participant RSP as "robot_state_publisher"
+    participant GZ as "Gazebo Simulator"
+    participant CM as "controller_manager"
+    participant TM as "twist_mux"
 
     User->>Launch: Launch Simulation
     Launch->>RSP: Start robot_state_publisher (Parse URDF/Xacro)
@@ -353,24 +353,24 @@ This flowchart illustrates the navigation stack's loop, from sensory input to ac
 ```mermaid
 graph LR
     subgraph Inputs
-        LIDAR[LaserScan /scan]
-        ODOM[Odometry /odom]
-        MAP[Occupancy Grid /map]
-        GOAL[Goal Pose /goal_pose]
+        LIDAR["LaserScan /scan"]
+        ODOM["Odometry /odom"]
+        MAP["Occupancy Grid /map"]
+        GOAL["Goal Pose /goal_pose"]
     end
 
-    subgraph Nav2 Stack
-        MAP_S[map_server] --> |Global Costmap| PLAN[planner_server]
-        LIDAR --> |Local Costmap| CTRL[controller_server]
+    subgraph Nav2_Stack ["Nav2 Stack"]
+        MAP_S["map_server"] --> |"Global Costmap"| PLAN["planner_server"]
+        LIDAR --> |"Local Costmap"| CTRL["controller_server"]
         ODOM --> CTRL
-        GOAL --> BT[bt_navigator]
+        GOAL --> BT["bt_navigator"]
         BT --> PLAN
         BT --> CTRL
-        BT --> BEH[behavior_server]
+        BT --> BEH["behavior_server"]
     end
 
     subgraph Output
-        CTRL --> |Velocity commands /cmd_vel| MUX[twist_mux]
+        CTRL --> |"Velocity commands /cmd_vel"| MUX["twist_mux"]
     end
 
     classDef input fill:#0f172a,stroke:#334155,color:#e2e8f0;
@@ -408,23 +408,23 @@ Below is the planned decentralized swarm communication architecture:
 
 ```mermaid
 graph TD
-    subgraph Vehicle Swarm
+    subgraph Vehicle_Swarm ["Vehicle Swarm"]
         direction LR
-        V1[Vehicle 1: ros_bot]
-        V2[Vehicle 2: ros_bot]
-        V3[Vehicle 3: ros_bot]
+        V1["Vehicle 1: ros_bot"]
+        V2["Vehicle 2: ros_bot"]
+        V3["Vehicle 3: ros_bot"]
     end
 
-    subgraph V2V Network Layer (Planned)
-        Broker{Zenoh / ROS2 DDS Network}
-        V1 <--> |State & Path Broadcast| Broker
-        V2 <--> |State & Path Broadcast| Broker
-        V3 <--> |State & Path Broadcast| Broker
+    subgraph V2V_Network ["V2V Network Layer (Planned)"]
+        Broker{"Zenoh / ROS2 DDS Network"}
+        V1 <--> |"State & Path Broadcast"| Broker
+        V2 <--> |"State & Path Broadcast"| Broker
+        V3 <--> |"State & Path Broadcast"| Broker
     end
 
-    subgraph Cooperative Behaviors
-        Broker --> |Shared Costmap / Joint Plan| Platooning[Cooperative Platooning]
-        Broker --> |Position / Intent Sharing| Collision[Coordinated Collision Avoidance]
+    subgraph Cooperative_Behaviors ["Cooperative Behaviors"]
+        Broker --> |"Shared Costmap / Joint Plan"| Platooning["Cooperative Platooning"]
+        Broker --> |"Position / Intent Sharing"| Collision["Coordinated Collision Avoidance"]
     end
 ```
 
@@ -433,23 +433,23 @@ The flowchart below traces how future V2V variables will merge into the local na
 
 ```mermaid
 flowchart TD
-    Start([Receive Mission Goal]) --> LocalPerception[Read Local Sensors: Lidar, Camera]
-    LocalPerception --> V2VReceive[Receive Swarm Neighbor States via V2V]
-    V2VReceive --> CoordinatedCostmap[Merge Local Costmap with Swarm States]
-    CoordinatedCostmap --> CheckCollision{Cooperative Collision Risk?}
+    Start(["Receive Mission Goal"]) --> LocalPerception["Read Local Sensors: Lidar, Camera"]
+    LocalPerception --> V2VReceive["Receive Swarm Neighbor States via V2V"]
+    V2VReceive --> CoordinatedCostmap["Merge Local Costmap with Swarm States"]
+    CoordinatedCostmap --> CheckCollision{"Cooperative Collision Risk?"}
     
-    CheckCollision -- Yes --> Negotiate[Negotiate Priority / Avoidance Route]
-    Negotiate --> ComputeVelocity[Compute Safe Local Velocity Profile]
+    CheckCollision -- "Yes" --> Negotiate["Negotiate Priority / Avoidance Route"]
+    Negotiate --> ComputeVelocity["Compute Safe Local Velocity Profile"]
     
-    CheckCollision -- No --> PlatoonCheck{Platooning Mode Active?}
-    PlatoonCheck -- Yes --> FollowLeader[Align Heading and Velocity with Leader]
-    PlatoonCheck -- No --> NavGoal[Plan Direct Route using Nav2 Planner]
+    CheckCollision -- "No" --> PlatoonCheck{"Platooning Mode Active?"}
+    PlatoonCheck -- "Yes" --> FollowLeader["Align Heading and Velocity with Leader"]
+    PlatoonCheck -- "No" --> NavGoal["Plan Direct Route using Nav2 Planner"]
     
     FollowLeader --> ComputeVelocity
     NavGoal --> ComputeVelocity
     
-    ComputeVelocity --> SendMux[Publish to twist_mux]
-    SendMux --> End([Loop Execution])
+    ComputeVelocity --> SendMux["Publish to twist_mux"]
+    SendMux --> End(["Loop Execution"])
 ```
 
 ### Timeline Roadmap
