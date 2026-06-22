@@ -466,8 +466,19 @@ gantt
 ---
 
 ## 17. Team Members & Maintainers
+
+### Project Developers (Team Members)
+* **Sanjay M**
+* **Sivasakthi R**
+* **Sanjeevikumar M**
+* **Sindhujashree R**
+* **Ragavarshini A**
+
+### Project Mentor
+* **Mathi Yuvarajan T K**
+
+### Platform Maintainers & Original Contributors
 * **Josh Newans** - Platform Maintainer (Original Robot URDF & Hardware Guides)
-* **Research Team / Contributors** - Swarm Intelligence & V2V Communication Developers
 
 ---
 
@@ -477,7 +488,4 @@ gantt
 * **Slam Toolbox ROS2**: [https://github.com/SteveMacenski/slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)
 * **Zenoh Network Protocol**: [https://zenoh.io/](https://zenoh.io/) for V2V edge communications.
 
----
 
-## 19. License
-This project is open-source. For licensing details, please refer to the [LICENSE](LICENSE) file in the root directory (or defaults to MIT License unless otherwise specified).
